@@ -27,38 +27,11 @@ Apenas duas classes. Uma para cada microserviço. A classe de integração poder
 **3.** Como você resolveu/resolveria problemas de resiliência na aplicação.<br>
 Utilizando a lib Polly, controlando o número e o tempo entre cada retry e caso definindo circuit break. <br>
 **4.** Como você resolveu/resolveria problemas de escalabilidade na aplicação?<br>
-
-
-Now that you have the backend running, let's setup the frontend.
-
-Enter into the frontend directory and run the following commands in your CLI(terminal):
-```
-$ yarn
-$ yarn start
-```
-
-- Runs the app in the development mode.
-
-- Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-- The page will reload if you make edits.
-
-
-## Instructions
-
-**1.** One click to place the clouds.<br>
-**2.** Two clicks to place the airports.<br>
-**3.** Three clicks to reset the terrain in case of misplacement.<br>
-**4.** Press simulate.<br>
-
-
-## Technologies
-- Node.js 11.10.1
-- JavaScript
-- Krakenjs
-- React.js
-- React Hooks
-- Typescript
+Ter em atenção a performance de todos os microserviços e garantir a escabilidades de todas as dependências. <br>
+**5.** Como você resolveu/resolveria problemas de rastreabilidade na aplicação?<br>
+Arquitetura por eventos permiti você ter controle e registro de todos os eventos executados. Mantendo um histórico de ações por um determinado período<br>
+**6.**  Como você garantiu a qualidade da sua aplicação?<br>
+Respeitando a arquitetura, separando a regra de negócio, utilizando patterns para reutilização de código. Acrescentar testes unitários.
 
 ## About Me
 
