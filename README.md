@@ -21,11 +21,11 @@ do visual studio ou ide da sua preferência.
 
 **1.** Descreva/Desenhe a arquitetura utilizada na solução:<br>
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--5A11Acxs--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://img.barrymcauley.co.uk/onion_architecture.jpg)
-Onion architecture e event driven.
+Onion architecture e event driven.<br>
 **2.** Descreve como a modelagem de domínio foi implementada de uma maneira que deixa a aplicação flexível:<br>
-Apenas duas classes. Uma para cada microserviço. A classe de integração poderia ter sido quebrada em pequenas classes.
+Apenas duas classes. Uma para cada microserviço. A classe de integração poderia ter sido quebrada em pequenas classes.<br>
 **3.** Como você resolveu/resolveria problemas de resiliência na aplicação.<br>
-Utilizando a lib Polly, controlando o número e o tempo entre cada retry e caso definindo circuit break.
+Utilizando a lib Polly, controlando o número e o tempo entre cada retry e caso definindo circuit break. <br>
 **4.** Como você resolveu/resolveria problemas de escalabilidade na aplicação?<br>
 
 
