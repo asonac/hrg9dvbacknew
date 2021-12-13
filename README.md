@@ -20,7 +20,7 @@ do visual studio ou ide da sua preferência.
 ###  De maneira textual, responda as questões abaixo
 
 **1.** Descreva/Desenhe a arquitetura utilizada na solução:<br>
-![](https://res.cloudinary.com/practicaldev/image/fetch/s--5A11Acxs--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://img.barrymcauley.co.uk/onion_architecture.jpg)
+![](https://miro.medium.com/max/462/1*0Pg6_UsaKiiEqUV3kf2HXg.png)
 <br><br>Onion architecture e event driven.<br>
 **2.** Descreve como a modelagem de domínio foi implementada de uma maneira que deixa a aplicação flexível:<br>
 Apenas duas classes. Uma para cada microserviço. A classe de integração poderia ter sido quebrada em pequenas classes.<br>
