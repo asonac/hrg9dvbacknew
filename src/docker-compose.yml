@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+
+  userdb:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
+  user.api:
+    image: ${DOCKER_REGISTRY-}userapi
+    build:
+      context: .
+      dockerfile: Services/User/User.API/Dockerfile
+
+  integration.api:
+    image: ${DOCKER_REGISTRY-}integrationapi
+    build:
+      context: .
+      dockerfile: Services/Integration/Integration.API/Dockerfile
+

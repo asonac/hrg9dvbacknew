@@ -1,0 +1,47 @@
+version: '3.4'
+
+services:
+
+  userdb:
+    container_name: userdb
+    environment:
+      SA_PASSWORD: "Thisisatest@8"
+      ACCEPT_EULA: "Y"
+    restart: always
+    ports:
+      - "1433:1433"
+
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672" 
+      - "15672:15672" 
+
+  user.api:
+    container_name: user.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:UserConnectionString=Server=userdb;Database=UserDb;User Id=sa;Password=Thisisatest@8"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+    depends_on:
+      - userdb
+      - rabbitmq
+    ports:
+      - "8000:80"
+
+  integration.api:
+    container_name: integration.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:UserConnectionString=Server=userdb;Database=UserDb;User Id=sa;Password=Thisisatest@8"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+      - "EmailSettings:ApiKey=SG.b2tbyKXfQ5Gz5ACGHfVDKQ.zzxzQaP_CePrerOf8xqaJD7ByfzKVL0GHCLqL68MLNs"
+      - "EmailSettings:FromAddress=teddy@celecsys.com"
+      - "EmailSettings:FromName=Teddy Test"
+    depends_on:
+      - userdb
+      - rabbitmq
+    ports:
+      - "8001:80"
+
