@@ -23,7 +23,7 @@ do visual studio ou ide da sua preferência.
 ![](https://miro.medium.com/max/462/1*0Pg6_UsaKiiEqUV3kf2HXg.png)
 <br><br>Onion architecture e event driven.<br>
 **2.** Descreve como a modelagem de domínio foi implementada de uma maneira que deixa a aplicação flexível:<br>
-Apenas duas classes. Uma para cada microserviço. A classe de integração poderia ter sido quebrada em pequenas classes.<br>
+Na camada de aplicação é definido as interfaces a serem utilizadas. As camadas externas so precisam herdar elas para pode criar suas funcionalidade, idenpendente de qual ferramenta deseja utilizar. Mantendo assim todo a regra de negócio intacta.<br>
 **3.** Como você resolveu/resolveria problemas de resiliência na aplicação.<br>
 Utilizando a lib Polly, controlando o número e o tempo entre cada retry e caso definindo circuit break. <br>
 **4.** Como você resolveu/resolveria problemas de escalabilidade na aplicação?<br>
