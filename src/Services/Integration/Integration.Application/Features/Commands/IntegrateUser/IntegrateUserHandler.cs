@@ -5,6 +5,7 @@ using Integration.Application.Models;
 using Integration.Application.Util;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,13 +18,15 @@ namespace Integration.Application.Features.Commands.IntegrateUser
         private readonly IMapper _mapper;
         private readonly ILogger<IntegrateUserHandler> _logger;
         private readonly IEmailService _emailService;
+        private readonly IHttpRequester _httpRequester;
 
-        public IntegrateUserHandler(IIntegrationRepository integrationReporsitory, IMapper mapper, ILogger<IntegrateUserHandler> logger, IEmailService emailService)
+        public IntegrateUserHandler(IIntegrationRepository integrationReporsitory, IMapper mapper, ILogger<IntegrateUserHandler> logger, IEmailService emailService, IHttpRequester httpRequester)
         {
             _integrationReporsitory = integrationReporsitory ?? throw new ArgumentNullException(nameof(integrationReporsitory));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
+            _httpRequester = httpRequester ?? throw new ArgumentNullException(nameof(httpRequester));
         }
 
         public async Task<Unit> Handle(IntegrateUserCommand request, CancellationToken cancellationToken = default)
@@ -31,7 +34,7 @@ namespace Integration.Application.Features.Commands.IntegrateUser
             if (VerifyCondition(request))
             {
                 await SendMailToUser(request);
-                var userInfo = DestructureObject.Destructure(request, false);
+                var userInfo = DestructureObject.Destructure(request, true);
                 var fileString = GenerateFile.GenerateUserFile(request, true, userInfo);
 
                 FileInfo file = new FileInfo();
@@ -43,6 +46,26 @@ namespace Integration.Application.Features.Commands.IntegrateUser
                     file.Extension = request.FileFormat.ToLower();
 
                     await SendMailToCustom(request, file);
+                }
+
+
+                if (!string.IsNullOrWhiteSpace(request.Link) &&
+                    !string.IsNullOrWhiteSpace(request.Method) &&
+                   !string.IsNullOrWhiteSpace(request.Payload))
+                {
+                    switch (request.Method.ToLower())
+                    {
+                        case "get":
+                            var result = await _httpRequester.GetAsync("serviceApi", request.Link);
+                            _logger.LogInformation(JsonConvert.SerializeObject(result));
+                            break;
+                        case "post":
+                            var userDto = DestructureObject.Destructure(request, false);
+                            var fileDto = GenerateFile.GenerateUserFile(request, false, userDto);
+                            var postResult = await _httpRequester.PostAsync("serviceApi", request.Link, new { User = userDto, File = fileDto });
+                            _logger.LogInformation(JsonConvert.SerializeObject(postResult));
+                            break;
+                    }
                 }
             }
 

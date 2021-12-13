@@ -49,14 +49,14 @@ namespace Integration.Infrastructure.Mail
 
         public async Task<bool> SendEmailWithAttachment(Email email, Application.Models.FileInfo file)
         {
-            var client = new SendGridClient(_emailSettings.ApiKey ?? "SG.b2tbyKXfQ5Gz5ACGHfVDKQ.zzxzQaP_CePrerOf8xqaJD7ByfzKVL0GHCLqL68MLNs");
+            var client = new SendGridClient(_emailSettings.ApiKey ?? "");
             var subject = email.Subject;
             var to = new EmailAddress(email.To);
             var emailBody = email.Body;
 
             var from = new EmailAddress
             {
-                Email = _emailSettings.FromAddress ?? "teddy@celecsys.com",
+                Email = _emailSettings.FromAddress ?? "teddy@test.com",
                 Name = _emailSettings.FromName ?? "Teddy Test"
             };
 
