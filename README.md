@@ -11,7 +11,7 @@ $ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 
 ```
 
-Após finalizar, já é possível acessar as duas api's através do:
+Após finalizar, já é possível acessar as documentações das duas api's através do:
 http://localhost:8000/swagger e http://localhost:8001/swagger
 
 Depois de rodado o comando no docker, já é possível rodar o projeto através
